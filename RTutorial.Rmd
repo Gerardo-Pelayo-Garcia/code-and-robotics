@@ -17,6 +17,7 @@ Copy and paste for code chunks; not available on CRAN
 
 install.packages("remotes")
 remotes::install_github("rlesur/klippy")
+
 -->
 
 ```{r set_up, include=FALSE}
@@ -27,7 +28,7 @@ knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
 klippy::klippy()
 ```
 
-Copy and paste the code blocks on this webpage to *R Studio*, editing specific parts the code to fit your data.</br></br>
+Copy and paste the code on this webpage to *RStudio Cloud*, editing the values to match your data.</br></br>
 
 ---
 
@@ -37,24 +38,25 @@ Copy and paste the code blocks on this webpage to *R Studio*, editing specific p
 
 ### *Sign up on R Studio Cloud*
 
-Make an account on <a href="https://rstudio.cloud" target="_blank">RStudio Cloud</a>. Use your Argosy Gmail account to make signing-in easier.
+Make an account on <a href="https://rstudio.cloud" target="_blank">RStudio Cloud</a>.
+
+Use your Argosy Gmail account to make signing-in easier.
 </br></br>
 
 ### *Create an R file to save work*
 
-1. Sign into <a href="https://rstudio.cloud" target="_blank">RStudio Cloud</a>
+1. Sign into <a href="https://rstudio.cloud" target="_blank">RStudio Cloud</a>.
 </br></br>
-2. Click *New Project* > *New RStudio Project*
+2. Click `New Project` > `New RStudio Project`.
 </br></br>
-3. Click *File* > *New File* > *R Script*
+3. Click `File` > `New File` > `R Script`.
 </br></br>
 4. Click the save icon and name your file.
 </br></br>
-5. *(optional)* Click *Tools* > *Global Options*. You can edit *Appearance* (colors and themes) and *Pane Layout* (where the 4 windows are placed) to customize the user interface. Click *Apply* to save your changes.</br></br>
 
 ### *Install the packages in this guide*
 
-Copy the code block below and paste it into your *R file*, then click *Source*. The initial download may take a few minutes.</br>
+Copy the code below and paste it into an *R file*, then click `Source`. The initial download may take a few minutes.</br>
 
 After a package is installed, the same code below will load the packages. It should always be at the top of the *R file* before any other code appears.
 
@@ -73,21 +75,6 @@ package.check <- lapply(
 ```
 </br></br>
 
-## How to use this guide
-
-* Each code block has a copy-to-clipboard button on the top left. 
-  + Click this button and paste it into *R Studio Cloud*. 
-  + To save and organize your work, always use an *R file* and click *Source* to runn the code.
-  + Always paste new code underneath previous code, never above it (unless you understand what you are doing).
-  + If you paste the code into the *Console*, press enter.
-</br></br>
-* Use the *table of contents* and its sub-headers to jump to different sections.
-</br></br>
-* Every list (of numbers) and *data frame* (table with data) is named ```df```.
-  + Every function and example references this variable consistently. 
-  + Each section will explain what ```df``` should be in each case, including what type of data each column should be.
-</br></br>
-
 ## Data used in examples
 
 For a `list` of numbers, the data `df` used in each example is always:
@@ -96,7 +83,7 @@ For a `list` of numbers, the data `df` used in each example is always:
 df <- c(1, 2, 3, 4, 5)
 ```
 
-For a `table` with 2 or more columns, the data used in each example is:
+For a `table` with 2 or more columns, the data used in most examples is:
 
 ```{r, eval=FALSE}
 df <- data.frame(
@@ -105,7 +92,10 @@ df <- data.frame(
 )
 ```
 
-For advanced figures, the data used for the examples is pre-installed in *R Studio*. The data refers to different car models, which is shown below:
+Custom functions will use specific types of data that may vary.
+
+
+For advanced figures, the data used for the examples is pre-installed in *RStudio*. The data set refers to different car models, which is shown below:
 
 ```{r}
 df <- mtcars
@@ -116,63 +106,20 @@ DT::datatable(df,
   caption = 'Pre-installed data set \'mtcars\'',
   rownames = FALSE)
 ```
+
+The edits made to the data in the previous code block are necessary.
 </br></br>
-
-<!--
-## Installing packages
-
-### *Default method*
-
-To install *packages*, additional code that allows *R* to do more advanced tasks, we need to use two different functions.
-
-```{r, eval=FALSE}
-# DO NOT RUN
-install.packages('name_of_package')
-```
-
-Paste the code an *R file* and run it once by clicking *Source*, then place a pound sign (```#```) before it in the same row to prevent *R* from trying to install it a second time. This makes it easier for someone else to see packages they need to run your code.
-
-Names of packages are case-sensitive and never include spaces or special characters.
-
-If you ever see a pop-up saying a package is required and asking if you want to install it, **always click 'Yes' to save time**. Any downloads through *R Studio Cloud* are always safe.
-</br></br>
-
-### *Via GitHub*
-
-In some cases, packages are only available through <a href="https://github.com" target="_blank">GitHub</a>. If this is the case, first check if the *devtools* package is installed by pasting this into the console:
-
-```{r, eval=FALSE}
-library(devtools)
-```
-
-If you receive an error message, paste this into an *R file* and click *Source* before typing ```#``` before it in the same row:
-
-```{r, eval=FALSE}
-install.packages('devtools')
-```
-
-Afterwards, find the name of the developer and the name of their project. Without spaces, surrounded by quotes, and separated by a slash (```'name_of_developer/name_of_project'```), paste this into the console:
-
-```{r, eval=FALSE}
-devtools::install_github('name_of_developer/name_of_project')
-```
-
-Double-check for spelling, capital and lower-case letters, and surrounding quotes.
-
-Be sure to include whatever functions were necessary in your *R file* with a preceding ```#```.
-</br></br>
--->
 
 ---
 
 # 1. Write data
 
-After pasting the code into an *R file*, replace the comma-separated numbers with your data. Only the numbers are the commas between them should be replaced.
+After pasting the code into an *R file*, replace the comma-separated numbers with your data.
 </br></br>
 
 ### List of numbers
 
-The data are provided as a list of numbers without any variables, or a table with only one column. In other words, only one thing is being measured.
+The data are provided as a list of numbers without any variables, or a table with only one column. In other words, only one 'thing' is being measured.
 
 ```{r}
 df <- c(1, 2, 3, 4, 5)
@@ -201,11 +148,12 @@ df <- data.frame(
 
 ### *Table with 4 or more columns*
 
-Follow the pattern in the previous examples
+Follow the pattern in the previous examples.
+</br></br>
 
-### *Name the columns something else*
+### *Rename the columns of the data*
 
-Replace the letters *x*, *y*, and *z* (if relevant) with the names, surrounded by quotation marks. In general, do not include spaces or special characters in the name, excluding dashes (-), underscores (_), and numbers(0-9). Note that these names are case-sensitive (**n**ame and **N**ame are different).
+Replace the letters *x*, *y*, or *z* with the names, surrounded by quotation marks. In general, do not include spaces or special characters in the name, except dashes (-), underscores (_), and numbers(0-9). Note that these names are case-sensitive (**n**ame and **N**ame are different). It is good practice to always use lower-case letters first.
 
 ```{r, eval=FALSE}
 # DO NOT RUN
@@ -226,52 +174,23 @@ df <- data.frame(
 
 # 2. Calculate statistics
 
-```{r}
-# List
-df_list <- c(1, 2, 3, 4, 5)
-
-# Table with 2 columns
-df_table <- data.frame(
-  'x' = c(1, 2, 3, 4, 5),
-  'y' = c(6, 7, 8, 9, 10)
-)
-```
-
-## Measures of central tendency
-
-**IMPORTANT - PLEASE READ.**
-
-For the code below, ```x``` is the name of the column from the table ```df``` you are referencing.
-
-```{r, eval=FALSE}
-df <- data.frame(
-  'x' = c(1, 2, 3, 4, 5),
-  'y' = c(6, 7, 8, 9, 10)
-)
-```
-
-If the data is a list, the name of the list is ```df```.
-
-```{r, eval=FALSE}
-df <- c(1, 2, 3, 4, 5)
-```
-</br></br>
+The output will appear in the *Console* panel in *RStudio*.
 
 ```{r, echo=FALSE}
 df <- c(1, 2, 3, 4, 5)
 ```
 
+## Measures of central tendency
+
 ### *Mean/Average*
 
-The output (3) will appear in the console.
-
-**List ```df```**
+**List `df`**
 
 ```{r, eval=FALSE}
 mean(df)
 ```
 
-**Table ```df``` with column ```x```**
+**Table `df` with column `x`**
 
 ```{r, eval=FALSE}
 mean(df$x)
@@ -284,16 +203,13 @@ cat('= ', mean(df))
 
 ### *Median*
 
-The output (3) will appear in the console.
-
-
-**List ```df```**
+**List `df`**
 
 ```{r, eval=FALSE}
 median(df)
 ```
 
-**Table ```df``` with column ```x```**
+**Table `df` with column `x`**
 
 ```{r, eval=FALSE}
 median(df$x)
@@ -313,13 +229,13 @@ cat('= ', median(df))
 
 ### *Variance*
 
-**List ```df```**
+**List `df`**
 
 ```{r, eval=FALSE}
 var(df)
 ```
 
-**Table ```df``` with column ```x```**
+**Table `df` with column `x`**
 
 ```{r, eval=FALSE}
 var(df$x)
@@ -332,13 +248,13 @@ cat('= ', var(df))
 
 ### *Standard deviation*
 
-**List ```df```**
+**List `df`**
 
 ```{r, eval=FALSE}
 sd(df)
 ```
 
-**Table ```df``` with column ```x```**
+**Table `df` with column `x`**
 
 ```{r, eval=FALSE}
 sd(df$x)
@@ -356,7 +272,7 @@ cat('= ', sd(df))
 
 ## Custom functions
 
-Copy and paste the code below into an *R file*, then click *Source*. To use the function, enter the code below the pasted code or into the console.
+Copy and paste the code below into an *R file*, then click *Source*. To use the function, call it using the *second* code block.
 
 ### *Mode*
 
@@ -395,13 +311,53 @@ mode <- function(x) {
 }
 ```
 
-```{r}
+**List `df`**
+
+```{r, eval=FALSE}
 mode(df)
 ```
 
-### *Manually calculate r, r^2, a (y-intercept), and b (slope)*
+**Table `df` for column `x`**
+
+```{r, eval=FALSE}
+mode(df$x)
+```
+
+```{r, echo=FALSE, results='asis'}
+cat('= ', mode(df))
+```
+</br></br>
+
+### *Standard error*
 
 ```{r}
+se <- function(x) {
+  temp <- round(sd(x)/sqrt(length(x)), digits=4)
+  
+  return(temp)
+}
+```
+
+**List `df`**
+
+```{r, eval=FALSE}
+se(df)
+```
+
+**Table `df` for column `x`**
+
+```{r, eval=FALSE}
+se(df$x)
+```
+
+```{r, echo=FALSE}
+cat('= ', se(df))
+```
+</br></br>
+
+### *Manually calculate r, r ^2^, a (y-intercept), and b (slope)*
+
+```{r, echo=FALSE}
 df <- data.frame(
   'x' = c(1, 2, 3, 4, 5),
   'y' = c(6, 7, 8, 9, 10)
@@ -431,32 +387,16 @@ make_table <- function(df) {
 }
 ```
 
+**Table `df` for columns `x` and `y`**
+
 ```{r}
 make_table(df)
 ```
+</br></br>
 
-### *Standard error*
+### *Manually calculate continuous probabilities*
 
-```{r}
-df <- c(1, 2, 3, 4, 5)
-```
-
-```{r}
-se <- function(x) {
-  temp <- round(sd(x)/sqrt(length(x)), digits=4)
-  
-  return(temp)
-}
-```
-
-
-```{r}
-se(df)
-```
-
-### *Manually calculate continuius probabilites*
-
-**1. Write the data.**
+**The data set uses decimals in the second column, which represent probabilities.**
 
 ```{r}
 df <- data.frame(
@@ -464,9 +404,6 @@ df <- data.frame(
   'y' = c(0.1, 0.2, 0.3, 0.4, 0.5)
 )
 ```
-
-
-**2. Copy and paste the function below. If an *R file* is being used, click *Source*.**
 
 ```{r}
 
@@ -501,7 +438,7 @@ probability_table <- function(df) {
 }
 ```
 
-**3. Call the function `probability_table()` with the data `df` inside the parentheses.**
+**Table `df` for columns `x` and `y`**
 
 ```{r}
 probability_table(df)
@@ -517,12 +454,14 @@ probability_table(df)
 df <- mtcars
 ```
 
-**For data with 2 or more columns only. Lists will not work.**
+**For data with 2 or more columns only. All examples use the pre-installed data set 'mtcars'**
+
+Replace *Title* in each example with your own title, surrounded by quotation marks.
 </br></br>
 
 ## Standard table
 
-Replace *Title* with a title for the table.
+Basic HTML table.
 
 ```{r}
 library(magrittr)
@@ -536,13 +475,18 @@ df%>%
 
 ## Other themes
 
-Replace *Title* with a title for the table.
+### *Use a scroll bar to limit the size of a table.*
+
+Replace *100* in `100%` and *200* in `200px` to change the size of the table.
 
 ```{r}
 kableExtra::kbl(cbind(df, df)) %>%
   kableExtra::kable_paper() %>%
   kableExtra::scroll_box(width = "100%", height = "200px")
 ```
+</br></br>
+
+### *Highlight a specific row when hovering with a cursor.*
 
 ```{r}
 library(magrittr)
@@ -551,6 +495,9 @@ df %>%
   kableExtra::kbl(caption = 'Title') %>%
   kableExtra::kable_paper("hover")
 ```
+</br></br>
+
+### *Highlight but do not use the width of the page.*
 
 ```{r}
 library(magrittr)
