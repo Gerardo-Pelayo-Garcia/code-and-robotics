@@ -1,0 +1,763 @@
+---
+title: "BCC Statistics:</br>Companion Course"
+author: Gerardo Pelayo García
+output: rmdformats::readthedown
+
+---
+
+<!--
+
+Package for format of html document
+
+install.packages("rmdformats")
+
+---
+
+Copy and paste for code chunks; not available on CRAN
+
+install.packages("remotes")
+remotes::install_github("rlesur/klippy")
+-->
+
+```{r set_up, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+Copy and paste the code blocks on this webpage to *R Studio*, editing specific parts the code to fit your data.</br></br>
+
+---
+
+# 0. Introduction
+
+## Getting started
+
+### *Sign up on R Studio Cloud*
+
+Make an account on <a href="https://rstudio.cloud" target="_blank">RStudio Cloud</a>. Use your Argosy Gmail account to make signing-in easier.
+</br></br>
+
+### *Create an R file to save work*
+
+1. Sign into <a href="https://rstudio.cloud" target="_blank">RStudio Cloud</a>
+</br></br>
+2. Click *New Project* > *New RStudio Project*
+</br></br>
+3. Click *File* > *New File* > *R Script*
+</br></br>
+4. Click the save icon and name your file.
+</br></br>
+5. *(optional)* Click *Tools* > *Global Options*. You can edit *Appearance* (colors and themes) and *Pane Layout* (where the 4 windows are placed) to customize the user interface. Click *Apply* to save your changes.</br></br>
+
+### *Install the packages in this guide*
+
+Copy the code block below and paste it into your *R file*, then click *Source*. The initial download may take a few minutes.</br>
+
+After a package is installed, the same code below will load the packages. It should always be at the top of the *R file* before any other code appears.
+
+```{r, eval=FALSE}
+packages = c('DT', 'dplyr', 'magrittr', 'kableExtra', 'plotly')
+
+package.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+    }
+  }
+)
+```
+</br></br>
+
+## How to use this guide
+
+* Each code block has a copy-to-clipboard button on the top left. 
+  + Click this button and paste it into *R Studio Cloud*. 
+  + To save and organize your work, always use an *R file* and click *Source* to runn the code.
+  + Always paste new code underneath previous code, never above it (unless you understand what you are doing).
+  + If you paste the code into the *Console*, press enter.
+</br></br>
+* Use the *table of contents* and its sub-headers to jump to different sections.
+</br></br>
+* Every list (of numbers) and *data frame* (table with data) is named ```df```.
+  + Every function and example references this variable consistently. 
+  + Each section will explain what ```df``` should be in each case, including what type of data each column should be.
+</br></br>
+
+## Data used in examples
+
+For a `list` of numbers, the data `df` used in each example is always:
+
+```{r, eval=FALSE}
+df <- c(1, 2, 3, 4, 5)
+```
+
+For a `table` with 2 or more columns, the data used in each example is:
+
+```{r, eval=FALSE}
+df <- data.frame(
+  x = c(1, 2, 3, 4, 5),
+  y = c(6, 7, 8, 9, 10)
+)
+```
+
+For advanced figures, the data used for the examples is pre-installed in *R Studio*. The data refers to different car models, which is shown below:
+
+```{r}
+df <- mtcars
+df$car <- rownames(df)
+df <- df[,c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+
+DT::datatable(df, 
+  caption = 'Pre-installed data set \'mtcars\'',
+  rownames = FALSE)
+```
+</br></br>
+
+<!--
+## Installing packages
+
+### *Default method*
+
+To install *packages*, additional code that allows *R* to do more advanced tasks, we need to use two different functions.
+
+```{r, eval=FALSE}
+# DO NOT RUN
+install.packages('name_of_package')
+```
+
+Paste the code an *R file* and run it once by clicking *Source*, then place a pound sign (```#```) before it in the same row to prevent *R* from trying to install it a second time. This makes it easier for someone else to see packages they need to run your code.
+
+Names of packages are case-sensitive and never include spaces or special characters.
+
+If you ever see a pop-up saying a package is required and asking if you want to install it, **always click 'Yes' to save time**. Any downloads through *R Studio Cloud* are always safe.
+</br></br>
+
+### *Via GitHub*
+
+In some cases, packages are only available through <a href="https://github.com" target="_blank">GitHub</a>. If this is the case, first check if the *devtools* package is installed by pasting this into the console:
+
+```{r, eval=FALSE}
+library(devtools)
+```
+
+If you receive an error message, paste this into an *R file* and click *Source* before typing ```#``` before it in the same row:
+
+```{r, eval=FALSE}
+install.packages('devtools')
+```
+
+Afterwards, find the name of the developer and the name of their project. Without spaces, surrounded by quotes, and separated by a slash (```'name_of_developer/name_of_project'```), paste this into the console:
+
+```{r, eval=FALSE}
+devtools::install_github('name_of_developer/name_of_project')
+```
+
+Double-check for spelling, capital and lower-case letters, and surrounding quotes.
+
+Be sure to include whatever functions were necessary in your *R file* with a preceding ```#```.
+</br></br>
+-->
+
+---
+
+# 1. Write data
+
+After pasting the code into an *R file*, replace the comma-separated numbers with your data. Only the numbers are the commas between them should be replaced.
+</br></br>
+
+### List of numbers
+
+The data are provided as a list of numbers without any variables, or a table with only one column. In other words, only one thing is being measured.
+
+```{r}
+df <- c(1, 2, 3, 4, 5)
+```
+</br></br>
+
+### *Table with 2 columns*
+
+```{r}
+df <- data.frame(
+  'x' = c(1, 2, 3, 4, 5),
+  'y' = c(6, 7, 8, 9, 10)
+)
+```
+</br></br>
+
+### *Table with 3 columns*
+
+```{r}
+df <- data.frame(
+  'x' = c(1, 2, 3, 4, 5),
+  'y' = c(6, 7, 8, 9, 10),
+  'z' = c(11, 12, 13, 14, 15)
+)
+```
+
+### *Table with 4 or more columns*
+
+Follow the pattern in the previous examples
+
+### *Name the columns something else*
+
+Replace the letters *x*, *y*, and *z* (if relevant) with the names, surrounded by quotation marks. In general, do not include spaces or special characters in the name, excluding dashes (-), underscores (_), and numbers(0-9). Note that these names are case-sensitive (**n**ame and **N**ame are different).
+
+```{r, eval=FALSE}
+# DO NOT RUN
+
+df <- data.frame(
+  'good_name' = c(),
+  'good-name1' = c(),
+  'goodName' = c(),
+  
+  'bad name' = c(),
+  'Bad.Name' = c(),
+  'Really Bad Name' = c()
+)
+```
+</br></br>
+
+---
+
+# 2. Calculate statistics
+
+```{r}
+# List
+df_list <- c(1, 2, 3, 4, 5)
+
+# Table with 2 columns
+df_table <- data.frame(
+  'x' = c(1, 2, 3, 4, 5),
+  'y' = c(6, 7, 8, 9, 10)
+)
+```
+
+## Measures of central tendency
+
+**IMPORTANT - PLEASE READ.**
+
+For the code below, ```x``` is the name of the column from the table ```df``` you are referencing.
+
+```{r, eval=FALSE}
+df <- data.frame(
+  'x' = c(1, 2, 3, 4, 5),
+  'y' = c(6, 7, 8, 9, 10)
+)
+```
+
+If the data is a list, the name of the list is ```df```.
+
+```{r, eval=FALSE}
+df <- c(1, 2, 3, 4, 5)
+```
+</br></br>
+
+```{r, echo=FALSE}
+df <- c(1, 2, 3, 4, 5)
+```
+
+### *Mean/Average*
+
+The output (3) will appear in the console.
+
+**List ```df```**
+
+```{r, eval=FALSE}
+mean(df)
+```
+
+**Table ```df``` with column ```x```**
+
+```{r, eval=FALSE}
+mean(df$x)
+```
+
+```{r, echo=FALSE, results='asis'}
+cat('= ', mean(df))
+```
+</br></br>
+
+### *Median*
+
+The output (3) will appear in the console.
+
+
+**List ```df```**
+
+```{r, eval=FALSE}
+median(df)
+```
+
+**Table ```df``` with column ```x```**
+
+```{r, eval=FALSE}
+median(df$x)
+```
+
+```{r, echo=FALSE, results='asis'}
+cat('= ', median(df))
+```
+</br></br>
+
+### *Mode*
+
+**_See custom functions_.**
+</br></br>
+
+## Measures of dispersion
+
+### *Variance*
+
+**List ```df```**
+
+```{r, eval=FALSE}
+var(df)
+```
+
+**Table ```df``` with column ```x```**
+
+```{r, eval=FALSE}
+var(df$x)
+```
+
+```{r, echo=FALSE, results='asis'}
+cat('= ', var(df))
+```
+</br></br>
+
+### *Standard deviation*
+
+**List ```df```**
+
+```{r, eval=FALSE}
+sd(df)
+```
+
+**Table ```df``` with column ```x```**
+
+```{r, eval=FALSE}
+sd(df$x)
+```
+
+```{r, echo=FALSE, results='asis'}
+cat('= ', sd(df))
+```
+</br></br>
+
+### *Standard error*
+
+**_See custom functions_.**
+</br></br>
+
+## Custom functions
+
+Copy and paste the code below into an *R file*, then click *Source*. To use the function, enter the code below the pasted code or into the console.
+
+### *Mode*
+
+```{r}
+# Sort by frequency, descending order (child: mode())
+sort_mode <- function(x) {
+  temp <- data.frame(table(x))
+  temp <- temp[order(-temp$Freq),]
+  
+  rownames(temp) <- NULL
+  names(temp) <- c('value', 'frequency')
+  
+  return(temp)
+}
+
+# Find the mode (parent: sort_mode())
+mode <- function(x) {
+  x <- sort_mode(x)
+  rows_x <- nrow(x)
+  max_freq <- max(x$frequency)
+  
+  x$is_max <- 0
+  x$is_max[x$frequency==max_freq] <- 1
+  
+  x <- x[x$is_max==1,]
+  x <- data.frame(as.numeric(as.character(x$value)))
+  rownames(x) <- NULL
+  
+  if(nrow(x)==rows_x){
+    x = 'no mode'
+  } else {
+    names(x) <- c('mode(s):')
+  }
+  
+  return(x)
+}
+```
+
+```{r}
+mode(df)
+```
+
+### *Manually calculate r, r^2, a (y-intercept), and b (slope)*
+
+```{r}
+df <- data.frame(
+  'x' = c(1, 2, 3, 4, 5),
+  'y' = c(6, 7, 8, 9, 10)
+)
+```
+
+```{r}
+# Create table to manually calculate several statistics (r, r^2, a, and b)
+make_table <- function(df) {
+  require(DT)
+  
+  df$xy <- df$x*df$y
+  df$x2 <- df$x**2
+  df$y2 <- df$y**2
+  
+  all_sums <- c(sum(df$x), sum(df$y), sum(df$xy), sum(df$x2), sum(df$y2))
+  df <- rbind(df, all_sums)
+  rownames(df)[rownames(df)==as.character(nrow(df))] <- 'Total Sums'
+  table <- DT::datatable(df,
+    extensions = 'Buttons',
+    caption = paste('Total observations: n = ', nrow(df)-1),
+    options = list(
+      dom = 'Bt',
+      buttons = c('copy', 'csv', 'excel')
+  ))
+  return(table)
+}
+```
+
+```{r}
+make_table(df)
+```
+
+### *Standard error*
+
+```{r}
+df <- c(1, 2, 3, 4, 5)
+```
+
+```{r}
+se <- function(x) {
+  temp <- round(sd(x)/sqrt(length(x)), digits=4)
+  
+  return(temp)
+}
+```
+
+
+```{r}
+se(df)
+```
+
+### *Manually calculate continuius probabilites*
+
+**1. Write the data.**
+
+```{r}
+df <- data.frame(
+  'x' = c(1, 2, 3, 4, 5),
+  'y' = c(0.1, 0.2, 0.3, 0.4, 0.5)
+)
+```
+
+
+**2. Copy and paste the function below. If an *R file* is being used, click *Source*.**
+
+```{r}
+
+# Create table to manually calculate continuous probabilities
+probability_table <- function(df) {
+  df$mean <- df$x*df$y
+  mean <- sum(df$mean)
+  df <- subset(df, select=-c(mean))
+  df$`x-m` <- df$x - mean
+  df$`(x-m)^2` <- round(df$`x-m`**2, digits=3)
+  df$`(x-m)^2*p(x)` <- round(df$`(x-m)^2`*df$y, digits=3)
+  names(df)[names(df)=='y'] <- 'p(x)'
+  
+  var <- round(sum(df$`(x-m)^2*p(x)`), digits=3)
+  sd <- round(sqrt(sum(df$`(x-m)^2*p(x)`)), digits=3)
+  var_row <- c('', '', '', '', var)
+  df <- rbind(df, var_row)
+  sd_row <- c('', '', '', '', sd)
+  df <- rbind(df, sd_row)
+  rownames(df)[rownames(df)==as.character(nrow(df)-1)] <- 'Var.'
+  rownames(df)[rownames(df)==as.character(nrow(df))] <- 'Std. Dev.'
+  
+  table <- DT::datatable(df,
+    extensions = 'Buttons',
+    caption = paste('See bottom rows for Variance (Var.) 
+                    and Standard Deviation (Std. Dev.)'),
+    options = list(
+      dom = 'Bt',
+      buttons = c('copy', 'csv', 'excel')
+  ))
+  return(table)
+}
+```
+
+**3. Call the function `probability_table()` with the data `df` inside the parentheses.**
+
+```{r}
+probability_table(df)
+```
+</br></br>
+
+---
+
+# 3a. Make basic tables
+
+```{r, echo=FALSE}
+# Change data frame df to pre-installed code for examples
+df <- mtcars
+```
+
+**For data with 2 or more columns only. Lists will not work.**
+</br></br>
+
+## Standard table
+
+Replace *Title* with a title for the table.
+
+```{r}
+library(magrittr)
+
+df%>%
+  kableExtra::kbl(caption = 'Title')%>%
+  kableExtra::kable_styling()
+  
+```
+</br></br>
+
+## Other themes
+
+Replace *Title* with a title for the table.
+
+```{r}
+kableExtra::kbl(cbind(df, df)) %>%
+  kableExtra::kable_paper() %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+
+```{r}
+library(magrittr)
+
+df %>%
+  kableExtra::kbl(caption = 'Title') %>%
+  kableExtra::kable_paper("hover")
+```
+
+```{r}
+library(magrittr)
+
+df %>%
+  kableExtra::kbl(caption = 'Title') %>%
+  kableExtra::kable_paper("hover", full_width = F)
+```
+
+**Additional information can be found <a href="https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html" target="_blank">here</a>.**
+</br></br>
+
+---
+
+# 3b. Make interactive tables
+
+**For technical purposes only.**
+
+The pre-installed data set *mtcars* has the car names as the row names instead of rows of data. By default, row names in a table are just the row number (first row = 1, second row = 2, etc.). The code below adds the row names as a column and reorders the columns, allowing us to keep the car names (first) while removing the row names.
+
+```{r}
+df <- mtcars
+df$car <- rownames(df)
+df <- df[,c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+```
+</br></br>
+
+**For data with 2 or more columns only. Lists will not work.**
+</br></br>
+
+## Standard table
+
+Replace *Title* with a title for the table.
+
+```{r}
+DT::datatable(df, 
+  rownames = FALSE,
+  caption = paste('Title')
+  )
+```
+</br></br>
+
+## With download buttons
+
+```{r}
+DT::datatable(df,
+  rownames = FALSE,
+  extensions = 'Buttons',
+  caption = paste('Title'),
+  options = list(
+  dom = 'Bt',
+  buttons = c('copy', 'csv', 'excel')
+  ))
+```
+</br></br>
+
+## With column filters
+```{r}
+DT::datatable(df,
+  rownames = FALSE,
+  extensions = 'Buttons',
+  caption = paste('Title'),
+  options = list(
+  dom = 'Bt'),
+  filter = 'top')
+```
+</br></br>
+
+## Other themes
+
+Replace *Title* with a title for the table.
+
+```{r}
+DT::datatable(df, 
+  rownames = FALSE,
+  caption = paste('Title'),
+  class = 'cell-border stripe'
+  )
+```
+
+```{r}
+DT::datatable(df,
+  rownames = FALSE,
+  extensions = 'Buttons',
+  caption = paste('Title'),
+  class = 'cell-border stripe',
+  options = list(
+  dom = 'Bt',
+  buttons = c('copy', 'csv', 'excel')
+  ))
+```
+**Additional information can be found <a href="https://rstudio.github.io/DT/" target="_blank">here</a>.**
+</br></br>
+
+---
+
+# 4. Statistical figures
+
+The following section references columns within data sets. To reference a specific column for a data set ```df```, we use a dollar sign ```$``` afterwards and write the name of the column:
+
+```{r, eval=FALSE}
+# DO NOT RUN
+df$name_of_column
+```
+
+The column names of the data set used for this example can be found below.
+
+```{r, echo=FALSE}
+cat(colnames(df))
+```
+</br></br>
+
+## Scatter plot
+
+Replace *mpg* and *wt* with the column names of **quantitative** data. Note that each column name is preceded with a tilde ```~``` without a space. Replace *Title* with a title for the figure.
+
+```{r, message=FALSE}
+library(magrittr)
+
+plotly::plot_ly(
+  data = df,
+  x = ~wt, 
+  y = ~mpg)%>%
+  plotly::layout(title='Title')
+```
+</br></br>
+
+## Scatter plot with a legend
+
+Replace *mpg* and *wt* with the column names of **quantitative** data. Note that each column name is preceded with a tilde ```~``` without a space. Replace *Title* with a title for the figure.
+</br></br>
+
+### *Continuous variable*
+
+Replace *cyl* with a column that will determine the color each point receives. If the data is numerical, it will create a gradient by default.
+
+```{r, message=FALSE}
+library(magrittr)
+
+plotly::plot_ly(
+  data = df,
+  x = ~wt, 
+  y = ~mpg,
+  color = ~cyl)%>%
+  plotly::layout(title='Title')
+```
+
+### *Discrete variable*
+
+Although the column *cyl* is numerical, there are only three unique values that appear. By appending ```factor```, the column is treated as qualitative data, where a unique number is a group.
+</br></br>
+
+Replace *cyl* with **qualitative data**, including numerical data with discrete values only.
+
+```{r, message=FALSE}
+library(magrittr)
+
+plotly::plot_ly(
+  data = df,
+  x = ~wt, 
+  y = ~mpg,
+  color = ~factor(cyl))%>%
+  plotly::layout(title='Title')
+```
+</br></br>
+
+## Bar chart
+
+```{r, message=FALSE}
+library(magrittr)
+
+plotly::plot_ly(
+  data = df,
+  x = ~car, 
+  y = ~mpg,
+  type = 'bar')%>%
+  plotly::layout(title='Title')
+```
+</br></br>
+
+## Pareto chart
+
+```{r, message=FALSE}
+library(magrittr)
+
+plotly::plot_ly(
+  data = df,
+  x = ~reorder(car, -mpg), 
+  y = ~mpg,
+  type = 'bar')%>%
+  plotly::layout(title='Title')%>%
+  plotly::layout(xaxis = list(title='car'))
+```
+</br></br>
+
+## Box-and-whisker plot
+
+```{r}
+plotly::plot_ly(data = df, y=~mpg, type = 'box', hoverinfo = 'y', name = '')%>%
+  plotly::layout(title = 'Title')
+```
+</br></br>
+
+## Additional information
+
+**Additional information can be found <a href="https://plotly.com/r/" target="_blank">here</a>.**
+
+---
+
+
