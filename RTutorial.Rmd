@@ -350,7 +350,7 @@ se(df)
 se(df$x)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, results='asis'}
 cat('= ', se(df))
 ```
 </br></br>
