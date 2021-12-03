@@ -18,7 +18,7 @@ df <- data.frame(
 
 # Plot scatter plot with line of best fit
 # Will appear under 'Plots' tab next to 'Files'
-plot(df$x, df$y)
+plot(df$x, df$y, main='IQ vs. GPA', xlab='IQ', ylab='GPA')
 reg_model <- lm(y~x, data=df)
 
 abline(reg_model)
