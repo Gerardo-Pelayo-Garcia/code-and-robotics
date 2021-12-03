@@ -1,5 +1,5 @@
 ---
-title: "Basic introduction to</br>statistics using R"
+title: "Introduction to statistics using R"
 author: Gerardo Pelayo García
 output: rmdformats::readthedown
 
