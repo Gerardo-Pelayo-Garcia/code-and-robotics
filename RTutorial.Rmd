@@ -1,0 +1,81 @@
+---
+title: "Introduction to Statistics with R"
+output: 
+  flexdashboard::flex_dashboard:
+    source_code: embed
+    theme: yeti
+---
+
+```{r set_up, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+Start Page {.hidden}
+=========================================
+
+Row
+-----------------------------------------
+
+### Item 1
+
+```{r}
+library(flexdashboard)
+text <- 0
+gauge(text, min=0, max=0)
+```
+
+Second Page {.storyboard}
+=========================================
+
+### Frame 1
+
+<h2>Text</h2> in card.
+
+```{r}
+df <- data.frame(
+  'x' = c(1, 2, 3, 4, 5),
+  'y' = c(6, 7, 8, 9, 10),
+  'z' = c(11, 12, 13, 14, 15)
+)
+```
+
+```{r, echo=FALSE}
+df
+```
+
+***
+
+Comments.
+
+[Return to table of contents.](#start-page)
+
+### <b>Frame 2</b><br> needs a new
+
+```{r}
+```
+
+***
+
+Comments.
+
+### Frame 3
+
+```{r}
+```
+
+***
+
+Comments.
+
+Next Page {data-navmenu='Other'}
+=========================================
+
+Next Page/1 {data-navmenu='Other'}
+=========================================
+
+Next Page/2 {data-navmenu='Other'}
+=========================================
